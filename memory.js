@@ -1,14 +1,23 @@
 "use strict";
 
 class Card {
-    constructor(card1, card2 = card1, set = card1, sound = card1){
-        this.card1 = card1;
-        this.card2 = card2;
-        this.set = set;
-        this.sound = sound;
+    constructor(cardObject){
+        this.card1 = cardObject.card1;
+        this.card2 = cardObject.card2;
+        this.set = cardObject.set;
+        this.sound = cardObject.sound;
     }
 }
 
+
+fetch('JS/cards.json')
+.then(res => res.json())
+
+.then(json => {
+    console.log(json)
+    myCardArray = json.map(card => new Card(card))
+    console.log(myCardArray)
+})
 
 
 const myField = document.getElementById('field');
@@ -19,8 +28,9 @@ selecteer.addEventListener("change", onSelectFieldsize);
 let boardClass;
 let myCardSet;
 
-const myCardArray = ["duck", "kitten", "piglet", "puppy", "calf", "veal", "lamb", "rooster", "horse", 
+let myCardArray = ["duck", "kitten", "piglet", "puppy", "calf", "veal", "lamb", "rooster", "horse", 
 "mouse", "dog", "cat", "goose", "goat", "sheep", "pig", "cow", "chick", "hen"];
+
 
 
 
