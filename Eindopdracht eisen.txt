@@ -1,0 +1,16 @@
+Te doen: 
+
+* Hoevaak een poging gedaan is bij 2 kaarten omdraaien.
+* Timer om te zien hoelang je bezig bent met de puzzel (Tip: https://www.w3schools.com/jsref/met_win_setinterval.asp)
+* Aantal goede matches laten zien. 
+* Als er een match is, moeten de kaarten verdwijnen. 
+* maximaal mogen er 2 kaarten omgedraaid zijn.
+* De gebruiker kan pas nieuwe kaartjes omdraaien als de vorige weer terug gedraaid zijn.
+* Er moet een pauze moment zijn als de kaarten allebei zijn omgedraaid
+(Gebruik deze links: https://www.w3schools.com/js/js_timing.asp  en https://www.w3schools.com/jsref/met_win_settimeout.asp) 
+* Als je op een plaatje klikt komt daar ook een geluid bij kijken, zie de map 'snd'. 
+* Gebruiker moet zijn naam invoeren in een prompt, en dit moet opgeslagen worden in als 'localStorage', en als het spel opnieuw word geopend moet hij weer welkom worden geheten in een alert().
+
+Extra: 
+* Er komt een High score die uit de localStorage komt, elke keer als het spel geopend word. 
+* Er zijn 3 levels, laten zien in een pop-up venster. 
