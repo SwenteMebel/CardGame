@@ -7,7 +7,7 @@ Eindopdracht voor de CardGame.
 
 2. In een tekstveld moet bijgehouden worden hoe vaak er een poging is ondernomen, hoe vaak de poging succesvol was en optioneel – voor de dare devils – de verstreken tijd in minuten en seconden.
 
-3. U moet nu heel logisch en helder gaan denken, misschien dingen in een flow chart op papier gaan zetten omdat u stap voor stap moet gaan vertellen hoe het spel werkt en reageert. U moet alle func33ties van het spel verdelen in kleine logische functies die uitgevoerd worden op het juiste moment. Denk aan                onClickCard(), evaluateMatch(), keepScore(), nextMove(), resetGame() etc. Ook moet u naar eigen inzicht const en let gebruiken om waarden in op te slaan. U hebt een let nodig om de aangeklikte kaartjes in op te slaan, om ze vervolgens te kunnen evalueren, u moet het aantal weggespeelde sets in een let bijhouden, en het  aantal pogingen.
+3. U moet nu heel logisch en helder gaan denken, misschien dingen in een flow chart op papier gaan zetten omdat u stap voor stap moet gaan vertellen hoe het spel werkt en reageert. U moet alle functies van het spel verdelen in kleine logische functies die uitgevoerd worden op het juiste moment. Denk aan                onClickCard(), evaluateMatch(), keepScore(), nextMove(), resetGame() etc. Ook moet u naar eigen inzicht const en let gebruiken om waarden in op te slaan. U hebt een let nodig om de aangeklikte kaartjes in op te slaan, om ze vervolgens te kunnen evalueren, u moet het aantal weggespeelde sets in een let bijhouden, en het  aantal pogingen.
 
 4. Wat u het beste kunt doen, is het werken met addEventListener() op het Field (het hele speelveld met de kaartjes), die u met removeEventListener() verwijdert als iemand op twee kaartjes heeft geklikt, zodat tijdens het bekijken van de omgedraaide kaartjes de gebruiker niet op nog meer kaartjes kan klikken. Er mogen    er op enig moment maar twee omgedraaid zijn. Pas als de kaartjes teruggedraaid zijn, mag de gebruiker weer klikken en moet u dus de event listener weer toepassen. Dit is echter op verschillende manieren op te lossen.
 
@@ -24,3 +24,13 @@ Eindopdracht voor de CardGame.
 10. De speler moet zijn naam invoeren via een prompt. De naam wordt opgeslagen in de localStorage. Als het spel opnieuw wordt geopend moet de speler met een alert() welkom geheten worden. Deze data komt uit de local storage. Extra uitdaging: sla de high scores op in de localStorage en toon die na elk spel. Echt een     lastige omdat er drie levels zijn. Kunt u die tonen met een pop-upvenster?
 
 
+Te doen : 
+1. Geluid bij de kaarten toevoegen, deze geluiden zitten in de 'snd' map. 
+2. functie maken dat de kaarten automatisch terug draaien na een X aantal secondes.
+3. Je mag maar 2 keer een kaart omdraaien per keer. 
+4. Zet een timer als je met een spel begint die bijhoudt hoelang je bezig bent. 
+5. tel aantal pogingen die iemand tijdens de game doet.
+6. Houd de High score bij. 
+7. Reset knop
+8. Start knop 
+9. 
