@@ -10,6 +10,7 @@ class Card {
 }
 
 
+
 fetch('JS/cards.json')
 .then(res => res.json())
 
@@ -22,11 +23,18 @@ fetch('JS/cards.json')
 
 const myField = document.getElementById('field');
 const selecteer = document.getElementById('selecteer');
-
+let teller = document.getElementById('teller');
+let tijd = document.getElementById('tijd')
 myField.addEventListener('click', onClickCard);
+
 selecteer.addEventListener("change", onSelectFieldsize);
 let boardClass;
 let myCardSet;
+let eersteCard;
+let tweedeCard;
+let klikTeller = 0;
+
+
 
 let myCardArray = ["duck", "kitten", "piglet", "puppy", "calf", "veal", "lamb", "rooster", "horse", 
 "mouse", "dog", "cat", "goose", "goat", "sheep", "pig", "cow", "chick", "hen"];
@@ -56,16 +64,19 @@ function onSelectFieldsize(e){
             case '4':
                 boardClass = 'board4';
                 aangepasteArray = myCardArray.slice(0,8);
+                klikTeller = 0;
                 break;
 
             case '5':
                 boardClass = 'board5';
                 aangepasteArray = myCardArray.slice(0,12);
+                klikTeller = 0;
                 break;
 
             case '6': 
                 boardClass = 'board6';
                 aangepasteArray = myCardArray.slice(0,18);
+                klikTeller = 0; 
                 break;
             default:
                 break;
@@ -77,28 +88,23 @@ function onSelectFieldsize(e){
         myDblCardArray = schudden(myDblCardArray); 
         myCardSet = myDblCardArray.map(card => new Card(card));
         populateField();
+        
 
 };
-
-
-
 
 // bouwt de kaarten op, met div, img, en class
 function populateField(){
 myField.innerHTML = '';   
 myCardSet.forEach(card => {    
- 
 let newTile = document.createElement('div');
 let newCard = document.createElement('img');
 let cover = document.createElement('img');
 let imageURL = 'img/' + card.card1 + '.jpg';
-
 newTile.setAttribute('class', boardClass);
 cover.setAttribute("src", "img/cover.png");
 cover.setAttribute('class', 'covered');
 newCard.setAttribute('src', imageURL);
 newCard.setAttribute('name', card.card1);
-
 newTile.appendChild(newCard);
 newTile.appendChild(cover);
 myField.appendChild(newTile);
@@ -108,14 +114,78 @@ myField.appendChild(newTile);
 }
 
 
-// geeft in console.log weer wat het is
+
+
+
 function onClickCard(e){
-    if (e.target.className === 'covered'){
-        e.target.className = 'uncovered';
-        console.log(e.target.parentNode.firstChild.getAttribute('name'))
-        
-    } 
-    
+    myField.addEventListener('click', evaluateMatch);
+    myField.addEventListener('click', omdraaienCards)
+    myField.addEventListener('click', disableCards);
+// zien welke 
+if (e.target.className === 'covered'){
+    e.target.className = 'uncovered';
+    //console.log(e.target.parentNode.firstChild.getAttribute('name'))
    
+    if(!eersteCard){
+        eersteCard = e.target.parentNode.firstChild.getAttribute('name');
+        console.log('EersteCard = ' + eersteCard) 
+        return;
+    }
+    if(!tweedeCard){
+        tweedeCard = e.target.parentNode.firstChild.getAttribute('name');
+    console.log('tweedeCard = ' + tweedeCard) 
+        
+    }
+  
+    }     
+
+};
+
+function evaluateMatch(){  
+// nakijken of ze overeen komen, false voor niet en true voor wel.  
+let match = eersteCard == tweedeCard;
+console.log(match)
+ match ? disableCards() : omdraaienCards();
+};
+
+function disableCards(e){
+ // als ze een match zijn dan uitschakelen of verwijderen en de waardes moeten worden leeg gegooid.
+ if(eersteCard == tweedeCard){ 
+    console.log('<h1>MATCH!</h1>')
+
+ }
+ 
 }
+
+function omdraaienCards(e){
+    // als ze geen match zijn dan moeten ze omdraaien en leeg gooien
+    setTimeout(function(){
+        if(e.target.className == 'uncovered'){
+            e.target.className = 'covered';
+        }
+
+       }, 2000);
+
+
+   
+    resetGame()
+}
+
+function keepScore(){
+    klikTeller++;
+    document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + klikTeller;
+};
+
+function nextMove(){
+
+};
+
+function resetGame(){
+
+};
+
+
+
+
+
 
