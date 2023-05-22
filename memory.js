@@ -158,7 +158,7 @@ function setInArray(){
 }
 
 function matchbekijken(){
-    let cards = document.querySelectorAll('img')
+    
     let eersteCard = gekozenCard[0];
     let tweedeCard = gekozenCard[1];
     if(eersteCard === tweedeCard && gekozenCard != ''){
@@ -169,144 +169,27 @@ function matchbekijken(){
             // verwijderd match element na 500ms
          },500);
     } else{
-        console.log('helaas probeer het opnieuw!')
         setTimeout(() =>{
             //zet de class uncovered weer op de img na de 500ms
             document.querySelector('#field > div > img').classList = 'covered'
         },500)
-       
-       
     }
+
+    leeggooien()
+   
+    //telling bijhouden per setje
+    poging++;
+    document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + poging;
+}
+
+// leeg gooien, en dmyField.addEventListener('click', onClickCard) weer activeren
+function leeggooien(){
+    console.log('leeg gooien kan nu gebeuren ' + eersteCard + ' & ' + tweedeCard );
     eersteCard= '';
     tweedeCard = '';
     gekozenCard = [];
-    poging++;
-    document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + poging -1;
-    
+    myField.addEventListener('click', onClickCard);
+    console.log('compleetCard in de functie leeggooien ' + compleetCard + ' ')
 }
-
-/*
-    if(!eersteCard){
-        eersteCard = e.target.parentNode.firstChild.getAttribute('name');
-        console.log('EersteCard = ' + eersteCard) 
-        
-        return
-    }
-    if(!tweedeCard){
-        tweedeCard = e.target.parentNode.firstChild.getAttribute('name');
-    console.log('tweedeCard = ' + tweedeCard) 
-        return
-    }
-   
-}     
-
-setInArray()
-function setInArray(){
-    gekozenCard.push(eersteCard, tweedeCard)
-    if(gekozenCard.length === 2){
-        setTimeout(nakijkenMatch, 500)
-    }
-    console.log(gekozenCard)
-}
-
-function nakijkenMatch(){
-    let cards = document.querySelectorAll('img');
-    console.log(cards)
-    let optieEenID = gekozenCard[0];
-    let optieTweeID = gekozenCard[1];
-   
-    if(gekozenCard[0] === gekozenCard[1]){
-        alert('match')
-        cards[optieEenID].setAttribute('src', 'imgwit/wit.jpg')
-        cards[optieTweeID].setAttribute('src', 'imgwit/wit.jpg')
-        gevondenCard.push(gekozenCard);
-        
-        console.log('Gevonden kaarten ' + gevondenCard);
-    } else {
-
-        cards[optieEenID].setAttribute('src', 'imgwit/wit.jpg')
-        console.log('dit is foute match ' + optieTweeID)
-        alert('Sorry, probeer het opnieuw')
-      
-       
-        
-    }
-    optieEenID = '';
-    optieTweeID = '';
-    eersteCard = '';
-    tweedeCard = '';
-    gekozenCard = []; 
-    
-}
-
-function keepScore(){
-    klikTeller++;
-    document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + klikTeller;
-};
-};
-
-
-function evaluateMatch(){
-   
-    if(eersteCard === tweedeCard){
-        console.log('match!')
-    } else {
-        console.log('helaas probeer het opnieuw')
-       
-    }
-    console.log('eersteCard ' + eersteCard + ' TweedeCard ' + tweedeCard)
-}
-
-
-function evaluateMatch(){  
-// nakijken of ze overeen komen.  
-let match = eersteCard === tweedeCard;
-console.log(match)
-
- match ? disableCards() : omdraaienCards();
-};
-
-function disableCards(){
- // als ze een match zijn dan uitschakelen of verwijderen en de waardes moeten worden leeg gegooid.
- let match = eersteCard == tweedeCard;
-    console.log(match)
-    setTimeout( () => {
-        alert('match')
-        resetGame()
-    },1000)
-    return;
-}
-
-function omdraaienCards(e){
-console.log(eersteCard, tweedeCard + ' in de fuctie omdraaienCards' )
-    // als ze geen match zijn dan moeten ze omdraaien en leeg gooien
-  setTimeout(() => {
-    if(e.target.className === 'uncovered'){
-        e.target.className = 'covered'
-    } else {
-        e.target.className = 'covered'
-    }
-    resetGame()
-  }, 1000)
-}
-
-function keepScore(){
-    klikTeller++;
-    document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + klikTeller;
-};
-
-
-function resetGame(){
-// de waardes resetten na de 2 kliks
-eersteCard = '';
-tweedeCard = '';
-console.log('Functie resetGame(), EersteCard = ' + eersteCard + ' tweedeCard = ' + tweedeCard )
-
-};
-*/
-
-
-
-
 
 
