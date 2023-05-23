@@ -59,9 +59,3 @@ img {
 .uncovered{
 display: none;
 }
-.wit{
-position: absolute;
-width: calc(100% - 10px);
-height: calc(100% - 10px); 
-background-color: rgb(126, 65, 65);
-}

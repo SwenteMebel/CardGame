@@ -22,10 +22,12 @@ fetch('JS/cards.json')
 
 
 const myField = document.getElementById('field');
+const wissen = document.getElementById('opnieuw')
 const selecteer = document.getElementById('selecteer');
 let teller = document.getElementById('teller');
 let tijd = document.getElementById('tijd')
 myField.addEventListener('click', onClickCard);
+wissen.addEventListener('click', opnieuw);
 selecteer.addEventListener("change", onSelectFieldsize);
 let boardClass;
 let myCardSet;
@@ -93,12 +95,14 @@ function onSelectFieldsize(e){
 
 // bouwt de kaarten op, met div, img, en class
 function populateField(){
+let idNr= 1;
 myField.innerHTML = '';   
 myCardSet.forEach(card => {    
 let newTile = document.createElement('div');
 let newCard = document.createElement('img');
 let cover = document.createElement('img');
 let imageURL = 'img/' + card.card1 + '.jpg';
+newTile.setAttribute('id', idNr++)
 newTile.setAttribute('class', boardClass);
 cover.setAttribute("src", "img/cover.png");
 cover.setAttribute('class', 'covered');
@@ -144,9 +148,9 @@ function onClickCard(e){
     }
     
     setInArray()
-    matchbekijken()
+matchbekijken(e)
 }
-
+// zet de gekozen elementen in een array.
 function setInArray(){
     gekozenCard.push(eersteCard, tweedeCard)
     console.log(gekozenCard)
@@ -157,21 +161,35 @@ function setInArray(){
     }
 }
 
-function matchbekijken(){
+// bekijkt of er een match is, zo ja verwijderen, zo niet, dan weer omdraaien naar de class'covered'
+// Als er een match is zet hij ze in een array om het te onthouden. 
+function matchbekijken(e){
     
     let eersteCard = gekozenCard[0];
     let tweedeCard = gekozenCard[1];
+
+    
     if(eersteCard === tweedeCard && gekozenCard != ''){
-        console.log('Match');
-        compleetCard.push(eersteCard, tweedeCard)
-        console.log('Array met match kaarten, BEWAREN! ' + compleetCard)
+        console.log('Match!')
+        compleetCard.push(eersteCard, tweedeCard)     
+       
         setTimeout(() =>{
-            // verwijderd match element na 500ms
-         },500);
+             // verwijderd match element na 500ms
+             
+             let clickedElement1 = e.target; 
+             let clickedElement = e.target;
+             console.log(clickedElement)
+             console.log(clickedElement1)
+             clickedElement1.parentNode.removeChild(clickedElement1);
+             clickedElement.parentNode.removeChild(clickedElement); 
+
+         });
     } else{
         setTimeout(() =>{
             //zet de class uncovered weer op de img na de 500ms
-            document.querySelector('#field > div > img').classList = 'covered'
+        let clickedElement = e.target;
+        clickedElement.firstChild.classList('uncovered')
+   
         },500)
     }
 
@@ -182,14 +200,23 @@ function matchbekijken(){
     document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + poging;
 }
 
-// leeg gooien, en dmyField.addEventListener('click', onClickCard) weer activeren
+// leeg gooien, en dmyField.addEventListener('click', onClickCard) weer activeren na elke keer dat er 2 clicks zijn gedaan
+
 function leeggooien(){
-    console.log('leeg gooien kan nu gebeuren ' + eersteCard + ' & ' + tweedeCard );
     eersteCard= '';
     tweedeCard = '';
     gekozenCard = [];
-    myField.addEventListener('click', onClickCard);
-    console.log('compleetCard in de functie leeggooien ' + compleetCard + ' ')
+    myField.addEventListener('click', onClickCard)
+        
 }
 
+// nog beter uitwerken.
+function opnieuw(){
+    poging = 0;
+    eersteCard= '';
+    tweedeCard = '';
+    gekozenCard = []; 
+    compleetCard = [];
+
+}
 
