@@ -164,33 +164,27 @@ function setInArray(){
 // bekijkt of er een match is, zo ja verwijderen, zo niet, dan weer omdraaien naar de class'covered'
 // Als er een match is zet hij ze in een array om het te onthouden. 
 function matchbekijken(e){
-    
     let eersteCard = gekozenCard[0];
     let tweedeCard = gekozenCard[1];
-
-    
+        
     if(eersteCard === tweedeCard && gekozenCard != ''){
         console.log('Match!')
-        compleetCard.push(eersteCard, tweedeCard)     
-       
+        compleetCard.push(eersteCard,tweedeCard)     
         setTimeout(() =>{
-             // verwijderd match element na 500ms
-             
-             let clickedElement1 = e.target; 
+             // verwijderd match element na 500m
              let clickedElement = e.target;
              console.log(clickedElement)
-             console.log(clickedElement1)
-             clickedElement1.parentNode.removeChild(clickedElement1);
              clickedElement.parentNode.removeChild(clickedElement); 
 
-         });
+         },500);
     } else{
         setTimeout(() =>{
             //zet de class uncovered weer op de img na de 500ms
         let clickedElement = e.target;
-        clickedElement.firstChild.classList('uncovered')
+        clickedElement.classList.remove('uncovered');
+        clickedElement.classList.add('covered');
    
-        },500)
+        },800)
     }
 
     leeggooien()
@@ -198,7 +192,7 @@ function matchbekijken(e){
     //telling bijhouden per setje
     poging++;
     document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + poging;
-}
+} 
 
 // leeg gooien, en dmyField.addEventListener('click', onClickCard) weer activeren na elke keer dat er 2 clicks zijn gedaan
 
@@ -219,4 +213,3 @@ function opnieuw(){
     compleetCard = [];
 
 }
-
