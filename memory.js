@@ -123,12 +123,60 @@ myField.appendChild(newTile);
 let eersteCard;
 let tweedeCard;
 let poging = 0; // houdt de telling bij van de aantal pogingen. 
-let gekozenCard = [];  // komen de gekozen kaarten in
+let gekozenCard = [];
+let gekozenCardId = []  // komen de gekozen kaarten in
 let compleetCard = []; // bewaard alle value's die overeen komen
 
 function onClickCard(e){
-    
-    
+if(gekozenCard.length != 2 ) {
+
+    if (e.target.className === 'covered'){
+        e.target.className = 'uncovered';
+        //console.log(e.target.parentNode.firstChild.getAttribute('name'))
+    };
+
+ let kaartId = e.target.parentNode.firstChild.getAttribute('name')
+ console.log(kaartId)
+ if(kaartId != 'covered' ){
+    gekozenCard.push(kaartId)
+    gekozenCardId.push(kaartId)
+    console.log('gekozenCard ' + gekozenCard)
+    console.log('gekozenCardId = ' + gekozenCardId)
+    if(gekozenCard.length == 2){
+        setTimeout(checkMatch, 500)
+    }
+ }
+}
+}
+
+function checkMatch(){
+    poging++
+    let cards = document.querySelectorAll('img');
+    let eersteCard = gekozenCardId[0];
+    let tweedeCard = gekozenCardId[1];
+
+    if(gekozenCardId[0] == gekozenCardId[1]){
+        console.log('MATCH!')
+        cards[eersteCard].setAttribute('class', 'blank');
+        cards[tweedeCard].setAttribute('class', 'blank');
+        compleetCard.push(gekozenCardId);
+    } else{
+        console.log('Probeer het opnieuw')
+        cards[eersteCard].classList('class', 'covered');
+        cards[eersteCard].setAttribute('class', 'covered');
+    }
+    gekozenCard = [];
+    gekozenCardId = [];
+
+}
+
+https://www.google.com/search?q=memory+game+javascript&tbm=vid&ei=2hZtZMe7OeyI9u8Px-me2AQ&start=10&sa=N&ved=2ahUKEwjHkPmPmYz_AhVshP0HHce0B0sQ8tMDegQIFBAE&biw=1920&bih=929&dpr=1#fpstate=ive&vld=cid:2861548b,vid:_T82DJ6IqcQ
+
+
+
+
+
+    /*
 // Zien welke kaarten je hebt gekozen. 
     if (e.target.className === 'covered'){
         e.target.className = 'uncovered';
@@ -213,3 +261,4 @@ function opnieuw(){
     compleetCard = [];
 
 }
+*/
