@@ -47,7 +47,7 @@ img {
 
 }
 
-.covere, .uncovered{
+.covered, .uncovered{
   border: 2px solid black;
   background-color: aliceblue;
   position: absolute;
@@ -60,8 +60,10 @@ img {
 display: none;
 }
 .blank {
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   position: absolute;
   width: calc(100% - 10px);
   height: calc(100% - 10px); 
+  top: 5px;
+  left: 5px;
 }

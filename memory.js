@@ -65,19 +65,16 @@ function onSelectFieldsize(e){
             case '4':
                 boardClass = 'board4';
                 aangepasteArray = myCardArray.slice(0,8);
-              
                 break;
 
             case '5':
                 boardClass = 'board5';
                 aangepasteArray = myCardArray.slice(0,12);
-               
                 break;
 
             case '6': 
                 boardClass = 'board6';
                 aangepasteArray = myCardArray.slice(0,18);
-                
                 break;
             default:
                 break;
@@ -95,14 +92,13 @@ function onSelectFieldsize(e){
 
 // bouwt de kaarten op, met div, img, en class
 function populateField(){
-let idNr= 1;
+
 myField.innerHTML = '';   
 myCardSet.forEach(card => {    
 let newTile = document.createElement('div');
 let newCard = document.createElement('img');
 let cover = document.createElement('img');
 let imageURL = 'img/' + card.card1 + '.jpg';
-newTile.setAttribute('id', idNr++)
 newTile.setAttribute('class', boardClass);
 cover.setAttribute("src", "img/cover.png");
 cover.setAttribute('class', 'covered');
@@ -112,8 +108,6 @@ newTile.appendChild(newCard);
 newTile.appendChild(cover);
 myField.appendChild(newTile);
 });
-
-
 }
 
 
@@ -123,142 +117,100 @@ myField.appendChild(newTile);
 let eersteCard;
 let tweedeCard;
 let poging = 0; // houdt de telling bij van de aantal pogingen. 
-let gekozenCard = [];
-let gekozenCardId = []  // komen de gekozen kaarten in
+let gekozenCard = [];  // komen de gekozen kaarten in
 let compleetCard = []; // bewaard alle value's die overeen komen
 
+
 function onClickCard(e){
-if(gekozenCard.length != 2 ) {
-
+  // Zien welke kaarten je hebt gekozen. 
     if (e.target.className === 'covered'){
         e.target.className = 'uncovered';
-        //console.log(e.target.parentNode.firstChild.getAttribute('name'))
     };
-
- let kaartId = e.target.parentNode.firstChild.getAttribute('name')
- console.log(kaartId)
- if(kaartId != 'covered' ){
-    gekozenCard.push(kaartId)
-    gekozenCardId.push(kaartId)
-    console.log('gekozenCard ' + gekozenCard)
-    console.log('gekozenCardId = ' + gekozenCardId)
-    if(gekozenCard.length == 2){
-        setTimeout(checkMatch, 500)
-    }
- }
-}
-}
-
-function checkMatch(){
-    poging++
-    let cards = document.querySelectorAll('img');
-    let eersteCard = gekozenCardId[0];
-    let tweedeCard = gekozenCardId[1];
-
-    if(gekozenCardId[0] == gekozenCardId[1]){
-        console.log('MATCH!')
-        cards[eersteCard].setAttribute('class', 'blank');
-        cards[tweedeCard].setAttribute('class', 'blank');
-        compleetCard.push(gekozenCardId);
-    } else{
-        console.log('Probeer het opnieuw')
-        cards[eersteCard].classList('class', 'covered');
-        cards[eersteCard].setAttribute('class', 'covered');
-    }
-    gekozenCard = [];
-    gekozenCardId = [];
-
-}
-
-https://www.google.com/search?q=memory+game+javascript&tbm=vid&ei=2hZtZMe7OeyI9u8Px-me2AQ&start=10&sa=N&ved=2ahUKEwjHkPmPmYz_AhVshP0HHce0B0sQ8tMDegQIFBAE&biw=1920&bih=929&dpr=1#fpstate=ive&vld=cid:2861548b,vid:_T82DJ6IqcQ
-
-
-
-
-
-    /*
-// Zien welke kaarten je hebt gekozen. 
-    if (e.target.className === 'covered'){
-        e.target.className = 'uncovered';
-        //console.log(e.target.parentNode.firstChild.getAttribute('name'))
-    };
-    if(!eersteCard){
-        eersteCard = e.target.parentNode.firstChild.getAttribute('name');
-        console.log('EersteCard = ' + eersteCard) 
-        return;
-    }
-   
-    if(!tweedeCard){
-        tweedeCard = e.target.parentNode.firstChild.getAttribute('name');
-        console.log('tweedeCard = ' + tweedeCard) 
-        myField.removeEventListener('click', onClickCard)
-        
-    }
     
-    setInArray()
-matchbekijken(e)
+if(!eersteCard){
+    eersteCard = e.target.parentNode.firstChild.getAttribute('name');
+    console.log('EersteCard = ' + eersteCard) 
+    return;
+}
+
+if(!tweedeCard){
+    tweedeCard = e.target.parentNode.firstChild.getAttribute('name');
+    console.log('tweedeCard = ' + tweedeCard) 
+    
+    
+}
+//time()
+setInArray()
+
 }
 // zet de gekozen elementen in een array.
 function setInArray(){
-    gekozenCard.push(eersteCard, tweedeCard)
-    console.log(gekozenCard)
-    if(gekozenCard.length = 2){
-        setTimeout(() => {
-            matchbekijken() 
-        })
-    }
+gekozenCard.push(eersteCard, tweedeCard)
+console.log(gekozenCard)
+if(gekozenCard.length != 1){
+    setTimeout(() => {
+        matchbekijken() 
+    })
+}
 }
 
 // bekijkt of er een match is, zo ja verwijderen, zo niet, dan weer omdraaien naar de class'covered'
 // Als er een match is zet hij ze in een array om het te onthouden. 
-function matchbekijken(e){
+function matchbekijken(){
+    myField.removeEventListener('click', onClickCard)
+    let uncoveredElement = document.querySelectorAll('.uncovered');
+    let imgDier = document.querySelector('#field > div > img')
+    let coverImg = document.querySelector('#field > div > img > img')
     let eersteCard = gekozenCard[0];
     let tweedeCard = gekozenCard[1];
-        
-    if(eersteCard === tweedeCard && gekozenCard != ''){
-        console.log('Match!')
-        compleetCard.push(eersteCard,tweedeCard)     
-        setTimeout(() =>{
-             // verwijderd match element na 500m
-             let clickedElement = e.target;
-             console.log(clickedElement)
-             clickedElement.parentNode.removeChild(clickedElement); 
-
-         },500);
-    } else{
-        setTimeout(() =>{
-            //zet de class uncovered weer op de img na de 500ms
-        let clickedElement = e.target;
-        clickedElement.classList.remove('uncovered');
-        clickedElement.classList.add('covered');
    
-        },800)
-    }
 
-    leeggooien()
-   
-    //telling bijhouden per setje
-    poging++;
-    document.getElementById('teller').innerHTML = 'Aantal keer op een kaart geklikt: ' + poging;
+if(eersteCard === tweedeCard && gekozenCard != ''){
+    console.log('Match!')
+    compleetCard.push(eersteCard,tweedeCard)
+    setTimeout(() =>{
+            alert('Match!')
+            // verwijderd match element na 1000ms
+            uncoveredElement.forEach(function(element){
+            element.parentNode.firstChild.remove(imgDier);
+            element.parentNode.firstChild.remove(coverImg);  
+        })
+    });
+    console.log('Gevonden sets ' + compleetCard + ', ')
+} else{
+    setTimeout(() =>{
+            alert('Helaas, probeer het opnieuw!')
+            //zet de class uncovered weer op de img na de 1000ms
+            uncoveredElement.forEach(function(element){
+            element.classList.remove('uncovered'); 
+            element.classList.add('covered'); 
+        })
+    })
+    
+}
+
+leeggooien()
+
+//telling bijhouden per setje
+poging++;
+document.getElementById('teller').innerHTML = 'Aantal pogingen: <b>' + poging + '</b>';
 } 
 
 // leeg gooien, en dmyField.addEventListener('click', onClickCard) weer activeren na elke keer dat er 2 clicks zijn gedaan
-
 function leeggooien(){
-    eersteCard= '';
-    tweedeCard = '';
-    gekozenCard = [];
-    myField.addEventListener('click', onClickCard)
-        
+gekozenCard = [];
+eersteCard = ''; 
+tweedeCard = '';
+myField.addEventListener('click', onClickCard)
 }
+
+//zodra er een kaart word omgedraaid word de tijd bijgehouden
+//function time(){
+
+//}
 
 // nog beter uitwerken.
 function opnieuw(){
-    poging = 0;
-    eersteCard= '';
-    tweedeCard = '';
-    gekozenCard = []; 
-    compleetCard = [];
+
 
 }
-*/
