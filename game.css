@@ -1,17 +1,28 @@
 #field {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  padding: 0 4px;
+  padding: 7px 2px;
   width: 100%;
   margin: 0 auto;
+  background-color: rgb(57, 66, 66);
+  border-radius: 8px;
+  border: 2px solid black;
 }
 
 #field>div {
-padding: 5px;
-position: relative;
+  background-color: rgb(115, 113, 113);
+  padding: 9px;
+  position: relative;
+  border-radius: 4%;
+  border: 2px solid black;
+  display: block;
+  height: 190px;
 }
 #field img {
   width: 100%;
+  border-radius: 4%;
+  border: 2px solid black
 }
 
 .board4 {
@@ -57,13 +68,57 @@ img {
   height: calc(100% - 10px); 
 }
 .uncovered{
-display: none;
+  display: none;
 }
-.blank {
-  background-color: rgb(0, 0, 0);
-  position: absolute;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px); 
-  top: 5px;
-  left: 5px;
+
+.veld{
+  background-color: rgb(57, 66, 66);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 60px;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 8px;
+  margin: 50px;
+  color: white;
+}
+.veld > select{
+  background-color: bisque;
+  font-size: 14px;
+  font-weight: 800;
+  border-radius: 8px;
+  border: 2px solid gold;
+  height: 30px;
+}
+.veld > button{
+  background-color: rgb(234, 48, 15);
+  font-size: 15px;
+  color: white;
+  border-radius: 8px;
+  border: 2px solid gold;
+  height: 30px;
+  width: 8%;
+}
+.top5{
+  background-color: rgb(57, 66, 66);
+  display:grid;
+  grid-template-rows: auto auto auto auto auto;
+  row-gap: 6px;
+  margin: 50px;
+  border-radius: 8px;
+  border: 2px solid black;
+  color: white;
+  padding: 2px;
+}
+.top5 > div{
+  display: flex;
+  justify-content: space-around;
+  background-color: aliceblue;
+  color:black;
+  align-items: center;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 18px;
 }
