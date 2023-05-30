@@ -33,8 +33,8 @@ const stopGame = document.getElementById('stop');
 const startGame = document.getElementById('start')
 const selecteer = document.getElementById('selecteer');
 let teller = document.getElementById('teller');
-let tijd = document.getElementById('tijd')
-myField.addEventListener('click', onClickCard);
+let sec = document.getElementById('sec')
+let min = document.getElementById('min')
 selecteer.addEventListener("change", onSelectFieldsize);
 let boardClass;
 let myCardSet;
@@ -136,16 +136,37 @@ let poging = 0; // houdt de telling bij van de aantal pogingen.
 let gekozenCard = [];  // komen de gekozen kaarten in
 let compleetCard = []; // bewaard alle value's die overeen komen
 let matchteller = 0; // teller die de match bijhoudt
-let matchtellerMin = 0 
+let matchtellerMin = 0;
+let secondes = 0; // de aantal secondes
 
-
-
-
+// Telt de tijd zodra er op de start knop wordt gedrukt.
+startGame.addEventListener('click', function(){
+    setInterval(() => {
+        ++secondes;
+        sec.innerHTML = pad(secondes % 60);
+        min.innerHTML = pad(parseInt(secondes / 60)); 
+        
+        localStorage.setItem('secondes', secondes);
+        let saveSecondes = localStorage.getItem('secondes')
+        console.log('Aantal secondes: ' + saveSecondes);
+   }, 1000);
+   myField.addEventListener('click', onClickCard);
+  
+        onClickCard()
+        
+});
+function pad(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+      return "0" + valString;
+    } else {
+      return valString;
+    }
+    
+}
 
 function onClickCard(e){
   // Zien welke kaarten je hebt gekozen. 
-
-
     if (e.target.className === 'covered'){
         e.target.className = 'uncovered';
     };
@@ -162,8 +183,6 @@ function onClickCard(e){
     }
     myField.removeEventListener('click', onClickCard)
     setinArray()
-    stopwatch()
-
 }
 
 function setinArray(){
@@ -266,7 +285,7 @@ stopGame.addEventListener('click', function(){
     let savePogingen = localStorage.getItem('Pogingen');
     let saveMatchen = localStorage.getItem('Matchen');
     // let saveTijd = localStorage.getItem('Tijd')
-    console.log('Spelersnaam: ' + saveSpelerNaam + '---- Pogingen: ' +savePogingen +'---- Matchen: '+ saveMatchen)
+    console.log('Spelersnaam: ' + saveSpelerNaam + '---- Pogingen: ' +savePogingen +'---- Matchen: '+ saveMatchen + ' ---- Aanatal secondes: ' )
 
     setTimeout(() =>{
         location.reload()
@@ -278,59 +297,6 @@ stopGame.addEventListener('click', function(){
         matchtellerMin = 0;
         poging = 0;
         timer = false;
-    },1000);   
+    },500);   
 });
 
-let hour = 0;
-let minute = 0;
-let second = 0;
-let count = 0;
-let timer = false;
-
-startGame.addEventListener('click', function(){
-    timer = true;
-    stopwatch()
-});
-function stopwatch(){
-    if(timer){
-        timer++;
-        if(count== 100){
-            second++;
-            count = 0
-        };
-        if(second == 60){
-            minute++;
-            second = 0;
-        }
-        if(minute == 60){
-            hour++;
-            minute = 0;
-            second = 0;
-        }
-
-        let hrString = hour;
-        let minString = minute;
-        let secString = second;
-        let countString = count;
-
-        if (hour < 10) {
-            hrString = "0" + hrString;
-        }
- 
-        if (minute < 10) {
-            minString = "0" + minString;
-        }
- 
-        if (second < 10) {
-            secString = "0" + secString;
-        }
- 
-        if (count < 10) {
-            countString = "0" + countString;
-        }
-
-        document.getElementById('tijd').innerHTML = 'Tijd: '+ minString + ' : ' + secString + ' : ' + countString;
-        setTimeout(stopwatch, 10);
- 
-    }
-}
