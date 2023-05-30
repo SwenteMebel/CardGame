@@ -265,7 +265,7 @@ stopGame.addEventListener('click', function(){
     // let saveTijd = localStorage.getItem('Tijd')
     console.log('Spelersnaam: ' + saveSpelerNaam + '---- Pogingen: ' +savePogingen +'---- Matchen: '+ saveMatchen)
 
-    /*setTimeout(() =>{
+    setTimeout(() =>{
         location.reload()
         matchteller = compleetCard.length;
         let matchtellerMin = matchteller / 2; 
@@ -277,7 +277,7 @@ stopGame.addEventListener('click', function(){
         matchtellerMin = 0;
         poging = 0;
         timer = false;
-    },1000);   */
+    },1000);   
 });
 
 let hour = 0;
