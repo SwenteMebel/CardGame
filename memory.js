@@ -257,6 +257,9 @@ wissen.addEventListener('click', function(){
 });
 
 stopGame.addEventListener('click', function(){
+    matchteller = compleetCard.length;
+    let matchtellerMin = matchteller / 2; 
+
     localStorage.setItem('Pogingen', poging)
     localStorage.setItem('Matchen', matchtellerMin)
     // localStorage.setItem('Tijd', )
@@ -267,8 +270,6 @@ stopGame.addEventListener('click', function(){
 
     setTimeout(() =>{
         location.reload()
-        matchteller = compleetCard.length;
-        let matchtellerMin = matchteller / 2; 
         alert('Score van ' + spelersNaam + '\n\nAantal pogingen: ' + poging + '\nAantal Matchen: ' + matchtellerMin + ' \nTijd:' )
         gekozenCard = [];
         compleetCard= [];
