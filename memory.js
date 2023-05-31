@@ -114,14 +114,19 @@ myCardSet.forEach(card => {
 let newTile = document.createElement('div');
 let newCard = document.createElement('img');
 let cover = document.createElement('img');
+let source = document.createElement('source')
+let sound = 'snd/' + card.card1 + '.wav';
 let imageURL = 'img/' + card.card1 + '.jpg';
 newTile.setAttribute('class', boardClass);
 cover.setAttribute("src", "img/cover.png");
 cover.setAttribute('class', 'covered');
+source.setAttribute('src', sound);
+source.setAttribute('type', 'audio/mpeg')
 newCard.setAttribute('src', imageURL);
 newCard.setAttribute('name', card.card1);
 newTile.appendChild(newCard);
 newTile.appendChild(cover);
+newTile.appendChild(source);
 myField.appendChild(newTile);
 });
 }
@@ -130,7 +135,7 @@ myField.appendChild(newTile);
 
 
 
-let eersteCard; //
+let eersteCard; 
 let tweedeCard; // gekozen tweede kaart 
 let poging = 0; // houdt de telling bij van de aantal pogingen. 
 let gekozenCard = [];  // komen de gekozen kaarten in
@@ -141,20 +146,23 @@ let secondes = 0; // de aantal secondes
 
 // Telt de tijd zodra er op de start knop wordt gedrukt.
 startGame.addEventListener('click', function(){
-    setInterval(() => {
-        ++secondes;
-        sec.innerHTML = pad(secondes % 60);
-        min.innerHTML = pad(parseInt(secondes / 60)); 
-        
-        localStorage.setItem('secondes', secondes);
-        let saveSecondes = localStorage.getItem('secondes')
-        console.log('Aantal secondes: ' + saveSecondes);
-   }, 1000);
-   myField.addEventListener('click', onClickCard);
-  
-        onClickCard()
-        
+    myField.addEventListener('click',onClickCard);
+    setInterval(timer, 1000)
+    onClickCard()
 });
+
+function timer(){
+    
+    ++secondes;
+    sec.innerHTML = pad(secondes % 60);
+    min.innerHTML = pad(parseInt(secondes / 60));  
+
+    localStorage.setItem('secondes', secondes);
+    let saveSecondes = localStorage.getItem('secondes')
+    console.log('Aantal secondes: ' + saveSecondes)
+        
+   
+}
 function pad(val) {
     var valString = val + "";
     if (valString.length < 2) {
@@ -177,7 +185,7 @@ function onClickCard(e){
         return;
     }
 
-    if(!tweedeCard){
+    if(!tweedeCard && tweedeCard != eersteCard){
         tweedeCard = e.target.parentNode.firstChild.getAttribute('name');
         console.log('tweedeCard = ' + tweedeCard) 
     }
@@ -285,11 +293,11 @@ stopGame.addEventListener('click', function(){
     let savePogingen = localStorage.getItem('Pogingen');
     let saveMatchen = localStorage.getItem('Matchen');
     // let saveTijd = localStorage.getItem('Tijd')
-    console.log('Spelersnaam: ' + saveSpelerNaam + '---- Pogingen: ' +savePogingen +'---- Matchen: '+ saveMatchen + ' ---- Aanatal secondes: ' )
+    console.log('Spelersnaam: ' + saveSpelerNaam + '---- Pogingen: ' +savePogingen +'---- Matchen: '+ saveMatchen + ' ---- Aanatal secondes: ' + secondes )
 
     setTimeout(() =>{
         location.reload()
-        alert('Score van ' + spelersNaam + '\n\nAantal pogingen: ' + poging + '\nAantal Matchen: ' + matchtellerMin + ' \nTijd:' )
+        alert('Score van ' + spelersNaam + '\n\nAantal pogingen: ' + poging + '\nAantal Matchen: ' + matchtellerMin + ' \nTijd: '+ secondes )
         gekozenCard = [];
         compleetCard= [];
         eersteCard = ''; 
@@ -299,4 +307,3 @@ stopGame.addEventListener('click', function(){
         timer = false;
     },500);   
 });
-
