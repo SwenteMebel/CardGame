@@ -1,6 +1,6 @@
 "use strict";
 
-let spelersNaam = prompt('Welkom bij de game, Memory. Wat is uw naam?')
+let spelersNaam = prompt('Welkom bij de game, Memory. Wat is uw naam?', 'asdfasdfasdf')
 localStorage.setItem('speler', spelersNaam )
 document.getElementById('speler').innerHTML = 'Welkom: ' + localStorage.getItem('speler');
 const saveSpelerNaam = localStorage.getItem('speler');
@@ -146,21 +146,20 @@ let secondes = 0; // de aantal secondes
 
 // Telt de tijd zodra er op de start knop wordt gedrukt.
 startGame.addEventListener('click', function(){
-    myField.addEventListener('click',onClickCard);
+    myField.addEventListener('click', onClickCard);
+    stopGame.addEventListener('click', stopGames)
     setInterval(timer, 1000)
     onClickCard()
+  
 });
 
+
+
+// Als je op start drukt loopt de timer en begint het spel.
 function timer(){
-    
     ++secondes;
     sec.innerHTML = pad(secondes % 60);
-    min.innerHTML = pad(parseInt(secondes / 60));  
-
-    localStorage.setItem('secondes', secondes);
-    let saveSecondes = localStorage.getItem('secondes')
-    console.log('Aantal secondes: ' + saveSecondes)
-        
+    min.innerHTML = pad(parseInt(secondes / 60));          
    
 }
 function pad(val) {
@@ -173,8 +172,8 @@ function pad(val) {
     
 }
 
+// Zien welke kaarten je hebt gekozen. 
 function onClickCard(e){
-  // Zien welke kaarten je hebt gekozen. 
     if (e.target.className === 'covered'){
         e.target.className = 'uncovered';
     };
@@ -193,6 +192,7 @@ function onClickCard(e){
     setinArray()
 }
 
+// Zet de gekozen kaarten in een Array
 function setinArray(){
     gekozenCard.push(eersteCard, tweedeCard)
     console.log(gekozenCard)
@@ -219,25 +219,28 @@ if(eersteCard === tweedeCard && gekozenCard != ''){
     console.log('Match!')
     compleetCard.push(eersteCard,tweedeCard)
     setTimeout(() =>{
-            alert('Match!')
+           
     
             uncoveredElement.forEach(function(element){
             element.parentNode.firstChild.remove(imgDier);
             element.parentNode.firstChild.remove(coverImg);  
         })
-    },300);
+    },700);
     console.log('Gevonden sets ' + compleetCard + ', ')
 } else{
     setTimeout(() =>{
-            alert('Helaas, probeer het opnieuw!')
+            
            
             uncoveredElement.forEach(function(element){
             element.classList.remove('uncovered'); 
             element.classList.add('covered'); 
         })
-    },200)
+    },700)
     
 }
+setTimeout(()=>{
+    myField.addEventListener('click', onClickCard)
+},800)
 
 leeggooien()
 telling()
@@ -261,7 +264,7 @@ function leeggooien(){
 gekozenCard = [];
 eersteCard = ''; 
 tweedeCard = '';
-myField.addEventListener('click', onClickCard)
+
 }
 
 // nog beter uitwerken.
@@ -275,7 +278,7 @@ wissen.addEventListener('click', function(){
         tweedeCard = '';
         let matchtellerMin = 0;
         poging = 0;
-        timer = false;
+        
         document.getElementById('goedeMatch').innerHTML = 'Aantal matchen: ' + matchtellerMin;
         document.getElementById('teller').innerHTML = 'Pogingen: ' +  poging;
     },1000);
@@ -283,27 +286,39 @@ wissen.addEventListener('click', function(){
 
 });
 
-stopGame.addEventListener('click', function(){
+
+function stopGames(){
     matchteller = compleetCard.length;
     let matchtellerMin = matchteller / 2; 
-
-    localStorage.setItem('Pogingen', poging)
-    localStorage.setItem('Matchen', matchtellerMin)
-    // localStorage.setItem('Tijd', )
-    let savePogingen = localStorage.getItem('Pogingen');
-    let saveMatchen = localStorage.getItem('Matchen');
-    // let saveTijd = localStorage.getItem('Tijd')
-    console.log('Spelersnaam: ' + saveSpelerNaam + '---- Pogingen: ' +savePogingen +'---- Matchen: '+ saveMatchen + ' ---- Aanatal secondes: ' + secondes )
+    alert('Score van => ' + spelersNaam  + '\n\nAantal pogingen: ' + poging + '\nAantal Matchen: ' + matchtellerMin + ' \nTijd in secondes: '+ secondes )
 
     setTimeout(() =>{
         location.reload()
-        alert('Score van ' + spelersNaam + '\n\nAantal pogingen: ' + poging + '\nAantal Matchen: ' + matchtellerMin + ' \nTijd: '+ secondes )
         gekozenCard = [];
         compleetCard= [];
         eersteCard = ''; 
         tweedeCard = '';
         matchtellerMin = 0;
         poging = 0;
-        timer = false;
-    },500);   
-});
+    },1000);   
+};
+
+/* 
+localStorage.setItem('Pogingen', poging)
+localStorage.setItem('Matchen', matchtellerMin)
+localStorage.setItem('Secondes', secondes);
+
+
+let savePogingen = localStorage.getItem('Pogingen');
+let saveMatchen = localStorage.getItem('Matchen');
+let saveSecondes = localStorage.getItem('Secondes')
+
+document.getElementById('scoreNaam').innerHTML = 'Speler: ' + saveSpelerNaam;
+document.getElementById('scorePogingen').innerHTML = 'Pogingen: ' + savePogingen;
+document.getElementById('scoreTijd').innerHTML = 'Tijd: ' + saveSecondes;
+document.getElementById('matches').innerHTML = 'Matchen: ' + saveMatchen;
+
+console.log('Aantal secondes: ' + saveSecondes)
+console.log(savePogingen, saveMatchen, saveSecondes, saveSpelerNaam )
+*/
+

@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   padding: 7px 2px;
   width: 100%;
-  margin: 0 auto;
+  margin: auto;
   background-color: rgb(57, 66, 66);
   border-radius: 8px;
   border: 2px solid black;
@@ -103,9 +103,6 @@ img {
 }
 .top5{
   background-color: rgb(57, 66, 66);
-  display:grid;
-  grid-template-rows: auto auto auto auto auto;
-  row-gap: 6px;
   margin: 50px;
   border-radius: 8px;
   border: 2px solid black;
@@ -123,7 +120,7 @@ img {
   font-size: 18px;
 }
 .tijd, #goedeMatch, .teller, #speler{
-  padding: 5px 15px;
+  padding: 3px 7px;
   border-radius: 8px;
   border: 2px solid gold;
 }
