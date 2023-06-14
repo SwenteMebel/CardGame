@@ -1,2 +1,2 @@
 # CardGame
-Kaart spel 
+Eerste Memory card game. 
