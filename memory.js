@@ -1,6 +1,6 @@
 "use strict";
 
-let spelersNaam = prompt('Welkom bij de game, Memory. Wat is uw naam?', 'asdfasdfasdf')
+let spelersNaam = prompt('Welkom bij de game, Memory. Wat is uw naam?')
 localStorage.setItem('speler', spelersNaam )
 document.getElementById('speler').innerHTML = 'Welkom: ' + localStorage.getItem('speler');
 const saveSpelerNaam = localStorage.getItem('speler');
@@ -109,7 +109,7 @@ function onSelectFieldsize(e){
 // bouwt de kaarten op, met div, img, en class
 function populateField(){
 
-myField.innerHTML = '';   
+
 myCardSet.forEach(card => {    
 let newTile = document.createElement('div');
 let newCard = document.createElement('img');
